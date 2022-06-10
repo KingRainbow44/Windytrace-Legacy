@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Grasscutters/Grasscutter/development/plugin-schema.json",
+  
+  "name": "Windtrace",
+  "description": "A recreation of Windtrace, now with support for custom options!",
+  "version": "1.0.0",
+  
+  "author": "KingRainbow44",
+  
+  "mainClass": "lol.magix.windtrace.Windtrace"
+}
