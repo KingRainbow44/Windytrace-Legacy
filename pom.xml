@@ -24,7 +24,46 @@
         <dependency>
             <groupId>xyz.grasscutters</groupId>
             <artifactId>grasscutter</artifactId>
-            <version>1.2.0</version>
+            <version>1.2.1-dev</version>
+            <scope>system</scope> 
+            
+            <systemPath>${basedir}/lib/grasscutter-1.2.1-dev.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.20.1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.os72</groupId>
+                <artifactId>protoc-jar-maven-plugin</artifactId>
+                <version>3.1.0.1</version>
+                
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        
+                        <configuration>
+                            <protocVersion>3.1.0</protocVersion>
+                            <outputDirectory>src/main/generated</outputDirectory>
+                            
+                            <inputDirectories>
+                                <include>src/main/resources/hsprotos</include>
+                            </inputDirectories>
+                        </configuration>
+
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -39,3 +39,8 @@ build/
 
 ### Protos ###
 .protos/
+src/main/resources/hsprotos/
+src/main/generated/
+
+### Libraries ###
+lib/
