@@ -2,7 +2,7 @@ package lol.magix.windtrace.utils;
 
 import java.util.Base64;
 
-public class StringUtils {
+public final class StringUtils {
     /**
      * Base64 encodes a string.
      * @param string The string to encode.
