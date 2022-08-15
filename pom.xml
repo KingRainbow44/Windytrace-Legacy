@@ -12,13 +12,13 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
-    
+
     <repositories>
         <repository>
             <id>sonatype</id>
             <url>https://s01.oss.sonatype.org/content/repositories/releases</url>
         </repository>
-        
+
         <repository>
             <id>4benj</id>
             <url>https://repo.4benj.com/releases</url>
@@ -30,7 +30,9 @@
             <groupId>xyz.grasscutters</groupId>
             <artifactId>grasscutter</artifactId>
             <version>1.2.2-dev</version>
-            <scope>provided</scope>
+            <scope>system</scope>
+
+            <systemPath>${basedir}/libs/grasscutter.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -39,7 +41,7 @@
             <version>1.2</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
@@ -61,15 +63,15 @@
                 <groupId>com.github.os72</groupId>
                 <artifactId>protoc-jar-maven-plugin</artifactId>
                 <version>3.1.0.1</version>
-                
+
                 <executions>
                     <execution>
                         <phase>generate-sources</phase>
-                        
+
                         <configuration>
                             <protocVersion>3.1.0</protocVersion>
                             <outputDirectory>src/main/generated</outputDirectory>
-                            
+
                             <inputDirectories>
                                 <include>src/main/resources/hsprotos</include>
                             </inputDirectories>
