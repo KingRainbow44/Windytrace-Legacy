@@ -2,7 +2,9 @@ package lol.magix.windtrace.player;
 
 import dev.morphia.annotations.Transient;
 import emu.grasscutter.game.player.Player;
+import emu.grasscutter.plugin.api.PlayerHook;
 import emu.grasscutter.server.game.GameSession;
+import lol.magix.windtrace.game.GameFlags;
 import lol.magix.windtrace.game.GameInstance;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,9 +18,27 @@ public final class WindtracePlayer extends Player {
      * @param players The collection of {@link WindtracePlayer}s.
      * @return The collection of {@link Player}s.
      */
-    public static Collection<Player> toCollection(Collection<WindtracePlayer> players) {
+    public static Collection<Player> toPlayerCollection(Collection<WindtracePlayer> players) {
         return new LinkedList<>(players);
     }
+
+    /**
+     * Converts a collection of {@link Player}s to a collection of {@link WindtracePlayer}s.
+     * @param players The collection of {@link Player}s.
+     * @return The collection of {@link WindtracePlayer}s.
+     */
+    public static Collection<WindtracePlayer> toWindtracePlayerCollection(Collection<Player> players) {
+        var list = new LinkedList<WindtracePlayer>();
+        players.forEach(player -> list.add((WindtracePlayer) player));
+        return list;
+    }
+    
+    /* The hook for this player. */
+    @Transient @Getter
+    private final PlayerHook hook;
+    /* The player's preferred game settings. */
+    @Transient @Getter
+    private final GameFlags gameFlags = new GameFlags();
     
     /* Game instance for a specific player. */
     @Transient @Getter @Setter 
@@ -27,10 +47,14 @@ public final class WindtracePlayer extends Player {
     @SuppressWarnings("deprecation")
     public WindtracePlayer() {
         super();
+
+        this.hook = new PlayerHook(this);
     }
     
     public WindtracePlayer(GameSession session) {
         super(session);
+        
+        this.hook = new PlayerHook(this);
     }
 
     /**
