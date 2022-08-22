@@ -1,6 +1,8 @@
 package lol.magix.windtrace.game;
 
 import emu.grasscutter.server.event.game.ReceivePacketEvent;
+import emu.grasscutter.server.event.player.PlayerMoveEvent;
+import emu.grasscutter.server.event.player.PlayerTeleportEvent;
 import lol.magix.windtrace.game.GameInstance.Role;
 import lol.magix.windtrace.player.WindtracePlayer;
 
@@ -15,7 +17,7 @@ public interface GameLogicHandler {
      * Setup logic should be performed here.
      */
     void setup();
-    
+
     /**
      * Called when the game instance is told to start.
      * Initialization logic should be performed here.
@@ -27,12 +29,17 @@ public interface GameLogicHandler {
      * Re-occurring logic should be performed here.
      */
     void tick();
-    
+
     /**
      * Called when the game instance is told to stop.
      * Cleanup logic should be performed here.
      */
     void stop(boolean force);
+
+    /**
+     * Called when all players have finished loading.
+     */
+    void doneLoading();
 
     /**
      * Called when the game instance assigns a role to a player.
@@ -48,4 +55,18 @@ public interface GameLogicHandler {
      * @param event The event which was received.
      */
     void processPacket(WindtracePlayer player, String packetName, ReceivePacketEvent event);
+
+    /**
+     * Called when a player in this game instance teleports.
+     * @param player The player that teleported.
+     * @param event The event which was received.
+     */
+    void processTeleport(WindtracePlayer player, PlayerTeleportEvent event);
+
+    /**
+     * Called when a player in this game instance moves.
+     * @param player The player that moved.
+     * @param event The event which was received.
+     */
+    void processMove(WindtracePlayer player, PlayerMoveEvent event);
 }
