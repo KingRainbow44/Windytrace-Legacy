@@ -8,6 +8,7 @@ import emu.grasscutter.plugin.Plugin;
 
 import emu.grasscutter.server.event.game.ReceivePacketEvent;
 import emu.grasscutter.server.event.player.PlayerMoveEvent;
+import emu.grasscutter.server.event.player.PlayerQuitEvent;
 import emu.grasscutter.server.event.player.PlayerTeleportEvent;
 import io.grasscutter.windblade.api.Windblade;
 import lol.magix.windtrace.game.GameFlags;
@@ -93,6 +94,10 @@ public final class Windtrace extends Plugin {
         new EventHandler<>(PlayerCreationEvent.class)
                 .listener(PlayerListener::onPlayerCreation)
                 .priority(HandlerPriority.LOW).register(this);
+
+        new EventHandler<>(PlayerQuitEvent.class)
+            .listener(PlayerListener::onQuit)
+            .priority(HandlerPriority.LOW).register(this);
 
         new EventHandler<>(ReceivePacketEvent.class)
                 .listener(PlayerListener::onPacketReceive)
