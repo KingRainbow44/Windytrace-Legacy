@@ -22,7 +22,7 @@ public final class GameManager {
     public static GameInstance createGame(GameFlags flags, WindtracePlayer host) {
         var uuid = UUID.randomUUID(); // Generate a UUID.
         var game = new GameInstance(uuid, flags, host); // Create a new game instance.
-        
+
         games.put(uuid, game); // Add the game to the map.
         return game; // Return the game instance.
     }
@@ -56,24 +56,21 @@ public final class GameManager {
         if(!games.containsKey(uuid)) {
             return; // If the game doesn't exist, return.
         }
-        
-        var game = games.get(uuid); // Get the game instance.
-        try {
-            game.stop(true); // Stop the game.
-        } catch (Exception exception) {
-            Windtrace.getInstance().getLogger().warn("Failed to stop a game instance!", exception);
-        }
-        
+
         games.remove(uuid); // Remove the game from the map.
     }
-    
+
     /**
      * Called once per server tick.
      * Updates all running game instances.
      */
     public static void tickGames() {
         games.forEach((uuid, game) -> {
+            if(game.getGameState() != GameInstance.State.IN_PROGRESS)
+                return;
+
             try {
+                // Tick the game.
                 game.tick();
             } catch (IllegalAccessException exception) {
                 Windtrace.getInstance().getLogger().debug("Unable to tick game instance " + uuid + "!", exception);
